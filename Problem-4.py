@@ -1,27 +1,10 @@
 '''
-Return a new sorted merged list from K sorted lists, each with size N
+From: Stripe
+Difficulty: Hard
+
+Given an array of integers, find the first missing positive integer in linear time and constant space. In other words, find the lowest positive integer that does not exist in the array. The array can contain duplicates and negative numbers as well.
+
+For example, the input [3, 4, -1, 1] should give 2. The input [1, 2, 0] should give 3.
+
+You can modify the input array in-place.
 '''
-
-from collections import _heapq
-
-def merge(lists):
-    merged_list = []
-
-    heap = [(lst[0], i, 0) for i, lst in enumerate(lists) if lst]
-
-    # basically sorting the array of tuple
-    _heapq.heapify(heap)
-
-    while heap:
-        val, list_ind, element_ind = _heapq.heappop(heap)
-        merged_list.append(val)
-
-        if element_ind + 1 < len(lists[list_ind]):
-            next_tuple = (lists[list_ind][element_ind + 1], list_ind, element_ind+1)
-            _heapq.heappush(heap, next_tuple)
-    return merged_list
-
-
-result = merge([[13, 15, 40], [12, 15, 20], [17, 20, 32]])
-
-print(result)

@@ -1,57 +1,10 @@
 '''
-From: Google
-Difficulty: Easy
+From: Airbnb
+Difficulty: Hard
 
-A unival tree (which stands for "universal value") is a tree where all nodes under it have the same value.
+Given a list of integers, write a function that returns the largest sum of non-adjacent numbers. Numbers can be 0 or negative.
 
-Given the root to a binary tree, count the number of unival subtrees.
+For example, [2, 4, 6, 2, 5] should return 13, since we pick 2, 6, and 5. [5, 1, 1, 5] should return 10, since we pick 5 and 5.
 
-For example, the following tree has 5 unival subtrees:
-
-   0
-  / \
- 1   0
-    / \
-   1   0
-  / \
- 1   1
+Follow-up: Can you do this in O(N) time and constant space?
 '''
-
-class Node:
-    def __init__(self, val, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
-
-
-node = Node(0, Node(1), Node(0, Node(1, Node(1), Node(1)), Node(0)))
-# node = Node(2, Node(2, Node(2), Node(2)), Node(2, Node(2), Node(2)))
-
-def count_univals(tree):
-    if tree == None:
-        return (0, True)
-
-    left_count, is_left_unival = count_univals(tree.left)
-    right_count, is_right_unival = count_univals(tree.right)
-
-    is_unival = True
-    if not is_left_unival or not is_right_unival:
-        is_unival = False
-    
-    if tree.left != None and tree.left.val != tree.val:
-        is_unival = False
-    
-    if tree.right != None and tree.right.val != tree.val:
-        is_unival = False
-    
-    if is_unival:
-        return (left_count + right_count + 1, True)
-    return (left_count + right_count, False)
-    
-print(count_univals(node))
-
-
-    
-
-    
-
