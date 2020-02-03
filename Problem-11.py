@@ -46,13 +46,16 @@ def save_words_in_ds(words):
     for word in words:
         word_hashes=break_and_hash_word(word)
 
-save_words_in_ds(["dog", "donkey"])
+save_words_in_ds(["dog", "donkey", "deer", "deal"])
 
-def get_value(input_hash):
+def get_value(input_hash, mem=[]):
     value = hash_dict[input_hash]
     if not isinstance(value, list):
-        return value
-    return tuple(map(lambda v: get_value(v), value))
+        mem.append(value)
+    else:
+        for v in value:
+            get_value(v, mem)
+    return mem
 
 def autocomplete(input):
     input_hash = ""
@@ -62,7 +65,7 @@ def autocomplete(input):
     suggestions = get_value(input_hash)
     print(suggestions)
 
-autocomplete("d")
+autocomplete("dea")
 
 
 
